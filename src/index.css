@@ -1,0 +1,554 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-dark: #0a0d14;
+  --bg-dark-secondary: #0f1420;
+  --bg-card: rgba(18, 24, 38, 0.7);
+  --bg-card-hover: rgba(26, 35, 56, 0.85);
+  --accent-gold: #d4af37;
+  --accent-gold-light: #f3e5ab;
+  --accent-gold-hover: #b89628;
+  --accent-green: #25d366;
+  --accent-green-hover: #1ebd56;
+  --accent-blue: #1e6091;
+  --accent-cyan: #00f2fe;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-glass: rgba(212, 175, 55, 0.2);
+  --border-light: rgba(255, 255, 255, 0.08);
+  --shadow-glow: 0 0 25px rgba(212, 175, 55, 0.15);
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+body {
+  background: radial-gradient(circle at 50% 0, #161f33 0%, #0a0d14 70%);
+  min-height: 100vh;
+  line-height: 1.6;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+  color: var(--text-main);
+}
+
+/* Typography */
+h1, h2, h3, .section-title, .brand-font, .font-serif {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.5px;
+}
+
+.section-title {
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff 0%, #ffb574 45%, #ff6b18 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.4rem, 4.5vw, 2.5rem);
+  line-height: 1.25;
+  font-weight: 800;
+  display: inline-block;
+  position: relative;
+  word-break: break-word;
+}
+
+.gold-title {
+  background: linear-gradient(135deg, #ffffff 0%, #f3e5ab 50%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0 auto 2rem;
+  font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+  line-height: 1.6;
+  padding: 0 0.5rem;
+}
+
+.title-wrapper {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .title-wrapper {
+    margin-bottom: 3rem;
+  }
+}
+
+/* Glassmorphic Container */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.glass-card:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.18);
+  transform: translateY(-5px);
+}
+
+/* Buttons */
+.btn {
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-flex;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .btn {
+    padding: 0.8rem 1.6rem;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    gap: 0.6rem;
+  }
+}
+
+.btn-gold {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffb574 0%, #ff6b18 100%);
+  box-shadow: 0 4px 15px rgba(255, 107, 24, 0.3);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #ffd4a0 0%, #ff8c30 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 24, 0.5);
+}
+
+/* Button Shimmer Effect */
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 80%
+  );
+  transform: rotate(30deg);
+  animation: shimmerLight 3.5s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerLight {
+  0% {
+    left: -150%;
+  }
+  40% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+.btn-whatsapp {
+  background: linear-gradient(135deg, var(--accent-green) 0%, #128c7e 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:hover {
+  background: linear-gradient(135deg, #34e775 0%, var(--accent-green) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+  color: #ffffff;
+}
+
+.btn-outline {
+  color: var(--text-main);
+  border: 1px solid var(--border-glass);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-bet {
+  color: #ffffff;
+  transition: var(--transition);
+  background: linear-gradient(135deg, #a71d31 0%, #680d1a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(167, 29, 49, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-bet:hover {
+  background: linear-gradient(135deg, #d32f2f 0%, #9a0007 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(211, 47, 47, 0.6);
+}
+
+/* Floating WhatsApp Radar Animation */
+@keyframes pulseRadar {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.whatsapp-radar {
+  animation: pulseRadar 2s infinite;
+}
+
+/* Category header angular ribbon */
+.category-header-angled {
+  clip-path: polygon(0 0, 240px 0, 215px 100%, 0 100%);
+}
+
+@media (max-width: 768px) {
+  .category-header-angled {
+    clip-path: none;
+  }
+}
+
+/* Reading Progress Bar */
+.reading-progress-bar {
+  background: linear-gradient(90deg, #d4af37 0%, #ffb574 50%, #00f2fe 100%);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+}
+
+/* Smooth anchor jump offset */
+[id^="section-"] {
+  scroll-margin-top: 110px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0d14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+/* Match Image Cards */
+.match-image-card {
+  border: 2px solid var(--accent-gold);
+  background: #0a0d14;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  display: block;
+}
+
+.match-image-card:hover {
+  border-color: var(--accent-gold-light);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4), 0 0 30px rgba(212, 175, 55, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Casino Card Glow */
+.casino-card {
+  border: 1px solid var(--border-glass);
+  background: rgba(18, 24, 38, 0.8);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.casino-card:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.25);
+}
+
+.casino-badge {
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  padding: 4px 35px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  position: absolute;
+  top: 12px;
+  right: -32px;
+  transform: rotate(45deg);
+  box-shadow: 0 3px 10px rgba(255, 65, 108, 0.5);
+  z-index: 2;
+}
+
+.casino-badge.gold-badge {
+  color: #000000;
+  background: linear-gradient(135deg, #ffb347, #ffcc33);
+  box-shadow: 0 3px 10px rgba(255, 204, 51, 0.5);
+}
+
+.casino-badge.cyan-badge {
+  color: #000000;
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  box-shadow: 0 3px 10px rgba(0, 242, 254, 0.5);
+}
+
+/* ==========================================================================
+   FairPlay Live — Rich Article Content Styles (Ported from Growth-Service)
+   ========================================================================== */
+.article-content {
+  color: #cbd5e1;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.article-content h2 {
+  font-family: 'Cinzel', serif;
+  color: #f3e5ab;
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-left: 0.875rem;
+  border-left: 4px solid #d4af37;
+  letter-spacing: 0.5px;
+}
+
+@media (min-width: 640px) {
+  .article-content h2 {
+    font-size: 1.95rem;
+  }
+}
+
+.article-content h3 {
+  font-family: 'Cinzel', serif;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.article-content p {
+  margin-bottom: 1.25rem;
+  color: #cbd5e1;
+  line-height: 1.8;
+}
+
+.article-content a {
+  color: #d4af37;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 175, 55, 0.5);
+  text-underline-offset: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.article-content a:hover {
+  color: #f3e5ab;
+  text-decoration-color: #f3e5ab;
+}
+
+.article-content strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.article-content em {
+  color: #f3e5ab;
+  font-style: italic;
+}
+
+.article-content code {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  color: #f3e5ab;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.875em;
+  font-family: monospace;
+}
+
+.article-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content li {
+  margin-bottom: 0.5rem;
+  color: #cbd5e1;
+}
+
+.article-content li::marker {
+  color: #d4af37;
+}
+
+.article-content blockquote {
+  border-left: 4px solid #d4af37;
+  background: rgba(212, 175, 55, 0.07);
+  padding: 1rem 1.5rem;
+  border-radius: 0 12px 12px 0;
+  margin: 1.75rem 0;
+  font-style: italic;
+  color: #f3e5ab;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  border-right: 1px solid rgba(212, 175, 55, 0.15);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.article-content blockquote p {
+  margin-bottom: 0;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background: rgba(18, 24, 38, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.article-content th {
+  background: rgba(212, 175, 55, 0.15);
+  color: #f3e5ab;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.article-content td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.article-content tr:hover td {
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.article-content .faq-item {
+  background: rgba(18, 24, 38, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 14px;
+  padding: 1.1rem 1.35rem;
+  margin: 1rem 0;
+  transition: border-color 0.2s ease;
+}
+
+.article-content .faq-item:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+.article-content .faq-q {
+  font-weight: 700;
+  color: #f3e5ab;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.article-content .faq-a {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  margin: 2rem auto;
+  display: block;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.article-content figure {
+  margin: 2rem auto;
+  display: block;
+  text-align: center;
+}
+
+.article-content figcaption {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-top: 0.5rem;
+  font-style: italic;
+  text-align: center;
+}

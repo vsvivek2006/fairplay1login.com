@@ -1,0 +1,16 @@
+export const SITE_CONFIG = {
+  name: 'FairPlay',
+  tagline: 'Online Sports Betting & Cricket ID Provider in India',
+  siteUrl: 'https://fairplay1login.com',
+  whatsappUrl: 'https://wa.link/fairplaylive',
+  whatsappRegisterUrl: 'https://wa.link/fairplaylive',
+  whatsappLoginUrl: 'https://wa.link/fairplaylive',
+  whatsappDemoUrl: 'https://wa.link/fairplaylive',
+  whatsappBetUrl: 'https://wa.link/fairplaylive',
+  whatsappCasinoUrl: 'https://wa.link/fairplaylive',
+  whatsappSupportUrl: 'https://wa.link/fairplaylive',
+  supportAvailability: '24/7 / 365 Days Instant Service',
+  minDeposit: '₹100',
+  withdrawalTime: '2 Minutes Instant Payout',
+  bonusOffer: '300% First Deposit Bonus',
+};

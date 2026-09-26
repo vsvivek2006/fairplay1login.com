@@ -3,6 +3,9 @@ import { generateBlogPost } from '@/lib/ai/generateBlogPost';
 import { requireAdminAuth } from '@/lib/auth';
 import { withIdempotency } from '@/lib/idempotency';
 
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   // Enforce admin authentication guard
   const unauth = await requireAdminAuth(request);

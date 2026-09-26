@@ -3,6 +3,8 @@ import { getAllPosts, createPost } from '@/lib/postsStore';
 import { requireAdminAuth } from '@/lib/auth';
 import { withIdempotency } from '@/lib/idempotency';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   // Defense-in-depth in-route authorization guard
   const unauth = await requireAdminAuth(req);

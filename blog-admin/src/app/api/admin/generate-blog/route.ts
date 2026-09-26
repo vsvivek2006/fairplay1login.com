@@ -4,6 +4,9 @@ import { sanitizeAiErrorMessage } from '@/lib/ai/safeError';
 import { SITE_CONFIG } from '@/config/site';
 import { requireAdminAuth } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
+
 export async function GET(req: NextRequest) {
   const unauth = await requireAdminAuth(req);
   if (unauth) return unauth;
@@ -29,8 +32,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const targetDomain = body.domain || body.target_site || SITE_CONFIG.domain || 'fairplaylive.io';
-    const targetSiteName = body.siteName || SITE_CONFIG.name || 'FairPlay Live';
+    const defaultDomain = process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname : (SITE_CONFIG.domain || 'fairplay1login.com');
+    const targetDomain = body.domain || body.target_site || defaultDomain;
+    const targetSiteName = body.siteName || process.env.NEXT_PUBLIC_SITE_NAME || SITE_CONFIG.name || 'FairPlay';
 
     const generated = await generateBlogPost({
       siteName: targetSiteName,

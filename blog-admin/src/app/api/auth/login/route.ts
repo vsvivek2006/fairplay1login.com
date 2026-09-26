@@ -10,6 +10,8 @@ import {
 } from '@/lib/auth';
 import { supabaseClient, supabaseAdmin } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   try {
     const clientIp =

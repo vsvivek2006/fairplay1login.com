@@ -177,9 +177,10 @@ function buildGeneratedResponse(
 
   const title = parsed.title?.trim() || `${focusKeyword}: The Complete Guide`;
   const seoTitle = title.length <= 60 ? title : title.substring(0, 57) + '...';
+  const siteName = req.siteName || (domain.includes('1login') ? 'FairPlay' : 'FairPlay Live');
   const seoDescription =
     parsed.metaDescription?.trim() ||
-    `Read the complete guide to ${focusKeyword} on FairPlay Live. Register via WhatsApp and claim your 300% welcome bonus.`;
+    `Read the complete guide to ${focusKeyword} on ${siteName}. Register via WhatsApp and claim your 300% welcome bonus.`;
   const excerpt =
     parsed.excerpt?.trim() ||
     (contentParagraphs[0]

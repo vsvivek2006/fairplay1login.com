@@ -18,6 +18,7 @@ import { normalizeContentToHtml, htmlToMarkdown } from './ai/contentFormatter';
 import { buildBlogPostPrompt } from './ai/prompts/blogPost';
 
 import { sanitizeAiErrorMessage, extractKeywordsList } from './ai/safeError';
+import { slugify, optimizeSeoSlug, selectRandomCoverImage } from './aiBlogGeneratorHelpers';
 
 // Re-export helpers so existing imports like:
 //   import { slugify, selectRandomCoverImage } from '@/lib/aiBlogGenerator'
@@ -145,8 +146,6 @@ function buildGeminiResponse(
   domain: string,
   modelUsed: string
 ): GeneratedBlogResponse {
-  const { slugify, optimizeSeoSlug, selectRandomCoverImage } = require('./aiBlogGeneratorHelpers');
-
   const focusKeyword = req.focusKeyword;
   const rawSlug = String(parsed.slug || slugify(String(parsed.title || focusKeyword)));
   const cleanSlug = optimizeSeoSlug(rawSlug, focusKeyword);

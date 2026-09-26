@@ -4,6 +4,8 @@ import { requireAdminAuth } from '@/lib/auth';
 import { withIdempotency } from '@/lib/idempotency';
 import { revalidatePath } from 'next/cache';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   const unauth = await requireAdminAuth(req);
   if (unauth) return unauth;

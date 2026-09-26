@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { generateBlogPostWithGroq } from './providers/groq';
+import { generateBlogPost as generatePostPrimary } from '../aiBlogGenerator';
 
 export interface GenerateBlogPostInput {
   topic: string;
@@ -23,13 +23,15 @@ export interface GenerateBlogPostOutput {
 export async function generateBlogPost(
   input: GenerateBlogPostInput
 ): Promise<GenerateBlogPostOutput> {
-  const result = await generateBlogPostWithGroq({
+  const isGemini = input.model?.toLowerCase().includes('gemini');
+  const result = await generatePostPrimary({
     topic: input.topic,
     focusKeyword: input.keywords?.[0] || input.topic,
     secondaryKeywords: input.keywords?.slice(1) || [],
     wordCount: input.wordCount || 1200,
     category: input.category || 'Cricket Betting',
     model: input.model,
+    provider: isGemini ? 'gemini' : 'groq',
   });
 
   // Ensure content is HTML ready for Tiptap

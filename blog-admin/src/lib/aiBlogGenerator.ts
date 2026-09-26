@@ -90,7 +90,7 @@ async function generateWithGemini(
     category: req.category ?? 'Cricket Betting',
   });
 
-  const model = preferredModel || 'gemini-3.7-flash';
+  const model = preferredModel || 'gemini-3.8-flash';
 
   try {
     // Pass API key securely via header so it is never exposed in URL query string

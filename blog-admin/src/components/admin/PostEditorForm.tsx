@@ -40,6 +40,8 @@ const AI_MODEL_OPTIONS = AVAILABLE_MODELS.map((m) => ({
   provider: m.provider === 'Google' ? ('gemini' as const) : ('groq' as const),
   badge: m.badge,
   desc: m.description,
+  contextWindow: m.contextWindow,
+  speed: m.speed,
 }));
 
 const GENERATION_STAGES = [
@@ -534,15 +536,18 @@ export default function PostEditorForm({ initialPost, isNew = false }: PostEdito
 
             {/* Choose Writing Style / AI Model */}
             <div className="pt-1 relative z-10">
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-300">
-                  Choose AI Writing Power
-                </label>
-                <span className="text-[10px] font-medium text-zinc-400">
-                  Selected: <strong className="text-indigo-400">{AI_MODEL_OPTIONS.find((m) => m.id === aiSelectedModel)?.name}</strong>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm">⚙️</span>
+                  <label className="text-xs font-bold text-zinc-200 tracking-tight">
+                    AI Model Engine <span className="text-zinc-500 font-normal">(Free Groq LPUs &amp; Google Gemini)</span>
+                  </label>
+                </div>
+                <span className="text-[11px] font-medium text-zinc-400">
+                  Speed: <strong className="text-amber-400">{AI_MODEL_OPTIONS.find((m) => m.id === aiSelectedModel)?.speed}</strong>
                 </span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {AI_MODEL_OPTIONS.map((m) => {
                   const isSelected = aiSelectedModel === m.id;
                   return (
@@ -551,31 +556,40 @@ export default function PostEditorForm({ initialPost, isNew = false }: PostEdito
                       type="button"
                       disabled={aiGenerating}
                       onClick={() => setAiSelectedModel(m.id)}
-                      className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer ${
+                      className={`p-3.5 rounded-2xl text-left border transition-all cursor-pointer flex flex-col justify-between ${
                         isSelected
-                          ? 'bg-indigo-500/15 text-white border-indigo-500 shadow-sm ring-1 ring-indigo-500/40'
-                          : 'bg-white/[0.03] text-zinc-300 border-white/[0.08] hover:border-white/20 hover:bg-white/[0.06]'
+                          ? 'bg-purple-950/30 text-white border-purple-500 shadow-md ring-2 ring-purple-500/40'
+                          : 'bg-[#0B0F19]/90 text-zinc-300 border-white/[0.08] hover:border-white/20 hover:bg-white/[0.04]'
                       }`}
                     >
-                      <div className="flex items-center justify-between gap-1 mb-0.5">
-                        <span className="text-xs font-bold truncate">{m.name}</span>
-                        <span
-                          className={`text-[8px] font-black px-1.5 py-0.5 rounded uppercase tracking-wider ${
-                            isSelected
-                              ? 'bg-indigo-600 text-white font-bold'
-                              : 'bg-white/10 text-zinc-400'
+                      <div>
+                        <div className="flex items-center justify-between gap-1.5 mb-1.5">
+                          <span className="text-xs font-bold text-white truncate">{m.name}</span>
+                          <span
+                            className={`text-[9px] font-semibold px-2 py-0.5 rounded-full tracking-wide ${
+                              isSelected
+                                ? 'bg-purple-600/30 text-purple-300 border border-purple-500/40'
+                                : m.badge.includes('Ultra')
+                                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                : 'bg-white/10 text-zinc-300 border border-white/10'
+                            }`}
+                          >
+                            {m.badge}
+                          </span>
+                        </div>
+                        <p
+                          className={`text-[11px] leading-relaxed line-clamp-2 ${
+                            isSelected ? 'text-zinc-300' : 'text-zinc-400'
                           }`}
                         >
-                          {m.badge}
-                        </span>
+                          {m.desc}
+                        </p>
                       </div>
-                      <p
-                        className={`text-[10px] leading-tight line-clamp-1 ${
-                          isSelected ? 'text-indigo-200' : 'text-zinc-400'
-                        }`}
-                      >
-                        {m.desc}
-                      </p>
+
+                      <div className="flex items-center justify-between text-[10px] text-zinc-500 mt-3 pt-2.5 border-t border-white/[0.06]">
+                        <span>Context: <strong className="text-zinc-400 font-semibold">{m.contextWindow}</strong></span>
+                        <span className="flex items-center gap-1 text-amber-400 font-semibold">⚡ {m.speed}</span>
+                      </div>
                     </button>
                   );
                 })}

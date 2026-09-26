@@ -11,10 +11,7 @@
     "generate:llms": "node scripts/generate-llms.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "blog:dev": "npm --prefix blog-admin run dev",
-    "blog:build": "npm --prefix blog-admin run build",
-    "blog:typecheck": "npm --prefix blog-admin run typecheck"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

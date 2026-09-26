@@ -14,6 +14,22 @@ let postsListCache: CacheEntry<BlogPost[]> | null = null;
 const postDetailCache = new Map<string, CacheEntry<BlogPost>>();
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
+/**
+ * Strict domain isolation filter:
+ * Ensures articles for fairplaylive.io NEVER appear on fairplay1login.com,
+ * and vice-versa.
+ */
+export function isPostForCurrentDomain(post: { tags?: string[] | null; content?: any }): boolean {
+  const tags = post.tags || [];
+  const siteTag = tags.find((t) => typeof t === 'string' && t.startsWith('site:'));
+  if (siteTag) {
+    return siteTag.toLowerCase() === 'site:fairplay1login.com';
+  }
+  // Fallback: check content for domain keywords if untagged
+  const contentStr = Array.isArray(post.content) ? post.content.join(' ') : String(post.content || '');
+  return contentStr.includes('fairplay1login.com') && !contentStr.includes('fairplaylive.io');
+}
+
 export async function fetchPublishedPosts(force = false): Promise<BlogPost[]> {
   const now = Date.now();
 
@@ -30,9 +46,10 @@ export async function fetchPublishedPosts(force = false): Promise<BlogPost[]> {
       .order('created_at', { ascending: false });
 
     if (!error && data) {
-      const posts = data as BlogPost[];
-      postsListCache = { data: posts, cachedAt: now };
-      return posts;
+      const allPosts = data as BlogPost[];
+      const domainPosts = allPosts.filter(isPostForCurrentDomain);
+      postsListCache = { data: domainPosts, cachedAt: now };
+      return domainPosts;
     }
     if (error) {
       console.error('[blogService] Supabase fetch error:', error.message);
@@ -65,8 +82,12 @@ export async function fetchPostBySlug(slug: string, force = false): Promise<Blog
 
     if (!error && data) {
       const post = data as BlogPost;
-      postDetailCache.set(cleanSlug, { data: post, cachedAt: now });
-      return post;
+      if (isPostForCurrentDomain(post)) {
+        postDetailCache.set(cleanSlug, { data: post, cachedAt: now });
+        return post;
+      }
+      // If post exists in DB but belongs to fairplaylive.io, do not expose it on fairplay1login.com
+      return null;
     }
     if (error) {
       console.error('[blogService] Error fetching post by slug from Supabase:', error.message);

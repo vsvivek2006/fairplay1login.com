@@ -109,7 +109,7 @@ async function fetchSupabaseBlogPosts() {
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
     const { data, error } = await supabase
       .from('fairplay_posts')
-      .select('slug, published_at, updated_at, created_at, status')
+      .select('slug, published_at, updated_at, created_at, status, tags, content')
       .eq('status', 'published');
 
     if (error) {
@@ -117,13 +117,24 @@ async function fetchSupabaseBlogPosts() {
       return [];
     }
 
-    if (!data || data.length === 0) {
-      console.log('[sitemap-generator] No published posts found in Supabase.');
+    // Filter strictly for fairplay1login.com (ignore fairplaylive.io posts)
+    const domainPosts = (data || []).filter((post) => {
+      const tags = post.tags || [];
+      const siteTag = tags.find((t) => typeof t === 'string' && t.startsWith('site:'));
+      if (siteTag) {
+        return siteTag.toLowerCase() === 'site:fairplay1login.com';
+      }
+      const contentStr = Array.isArray(post.content) ? post.content.join(' ') : String(post.content || '');
+      return contentStr.includes('fairplay1login.com') && !contentStr.includes('fairplaylive.io');
+    });
+
+    if (domainPosts.length === 0) {
+      console.log('[sitemap-generator] No published posts for fairplay1login.com found in Supabase.');
       return [];
     }
 
-    console.log(`[sitemap-generator] Found ${data.length} published blog posts in Supabase.`);
-    return data.map((post) => {
+    console.log(`[sitemap-generator] Found ${domainPosts.length} published blog posts for fairplay1login.com in Supabase.`);
+    return domainPosts.map((post) => {
       const cleanSlug = post.slug.replace(/^\/+|\/+$/g, '');
       const rawDate = post.updated_at || post.published_at || post.created_at || new Date().toISOString();
       const lastmod = new Date(rawDate).toISOString().split('T')[0];

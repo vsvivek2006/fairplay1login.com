@@ -43,16 +43,16 @@ export default function CrmNav() {
           {/* Left: Brand & Main Navigation */}
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-600 flex items-center justify-center font-bold text-white text-xs tracking-wider shadow-sm shadow-indigo-500/30 group-hover:scale-105 transition-transform">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center font-bold text-black text-xs tracking-wider shadow-sm shadow-amber-500/30 group-hover:scale-105 transition-transform">
                 FP
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-white text-sm tracking-tight">
-                  FairPlay Live <span className="text-indigo-400 font-medium">Articles</span>
+                  FairPlay <span className="text-amber-400 font-medium">Articles</span>
                 </span>
-                <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-mono">
-                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-                  .io
+                <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                  .com
                 </span>
               </div>
             </Link>

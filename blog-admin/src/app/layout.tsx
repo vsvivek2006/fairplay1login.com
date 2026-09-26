@@ -17,8 +17,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'FairPlay Live Blog Studio | fairplaylive.io',
-  description: 'Internal platform for writing and publishing articles to fairplaylive.io',
+  title: 'FairPlay Blog Studio | fairplay1login.com',
+  description: 'Internal platform for writing and publishing articles to fairplay1login.com',
   robots: {
     index: false,
     follow: false,

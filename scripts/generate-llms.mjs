@@ -36,13 +36,23 @@ async function fetchSupabasePosts() {
     const supabase = createClient(supabaseUrl, supabaseAnonKey);
     const { data, error } = await supabase
       .from('fairplay_posts')
-      .select('title, slug, excerpt, content, published_at, updated_at, status')
+      .select('title, slug, excerpt, content, published_at, updated_at, status, tags')
       .eq('status', 'published');
 
     if (error || !data) {
       return [];
     }
-    return data;
+
+    // Filter strictly for fairplay1login.com
+    return data.filter((post) => {
+      const tags = post.tags || [];
+      const siteTag = tags.find((t) => typeof t === 'string' && t.startsWith('site:'));
+      if (siteTag) {
+        return siteTag.toLowerCase() === 'site:fairplay1login.com';
+      }
+      const contentStr = Array.isArray(post.content) ? post.content.join(' ') : String(post.content || '');
+      return contentStr.includes('fairplay1login.com') && !contentStr.includes('fairplaylive.io');
+    });
   } catch {
     return [];
   }

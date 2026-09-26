@@ -119,10 +119,7 @@ export async function getAllPosts(
   let filtered = filter === 'all' ? sorted : sorted.filter((p) => p.status === filter);
 
   if (siteFilter && siteFilter !== 'all') {
-    const siteMatches = filtered.filter((p) => p.target_site === siteFilter);
-    if (siteMatches.length > 0) {
-      filtered = siteMatches;
-    }
+    filtered = filtered.filter((p) => p.target_site === siteFilter);
   }
 
   listCache[cacheKey] = { data: filtered, cachedAt: now };

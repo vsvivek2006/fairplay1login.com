@@ -13,6 +13,11 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    watch: {
+      ignored: ['**/blog-admin/**'],
+    },
+  },
   build: {
     rollupOptions: {
       output: {
